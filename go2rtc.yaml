@@ -1,0 +1,18 @@
+streams:
+  kitty_cam:
+    # PS-muxed private stream -> demux to annexb h264 on the fly, low latency
+    - "exec:ffmpeg -hide_banner -fflags nobuffer -flags low_delay -analyzeduration 0 -probesize 262144 -f mpegps -i tcp://bridge:5000 -an -c:v copy -f h264 -"
+    # fallback: let ffmpeg autodetect
+    - "ffmpeg:tcp://bridge:5000#video=h264"
+
+rtsp:
+  listen: :8554
+
+webrtc:
+  listen: :8555
+  # advertise host-reachable candidate; container IP is unreachable from browser
+  candidates:
+    - 127.0.0.1:8555
+
+http:
+  listen: :1984

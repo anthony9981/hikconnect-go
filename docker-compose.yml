@@ -1,0 +1,35 @@
+services:
+  bridge:
+    build: .
+    platform: linux/amd64
+    environment:
+      HIK_HOST: ${HIK_HOST:?HIK_HOST not set - copy .env.example to .env}
+      HIK_PORT: ${HIK_PORT:-8000}
+      HIK_USER: ${HIK_USER:?HIK_USER not set}
+      HIK_PASS: ${HIK_PASS:?HIK_PASS not set}
+      HIK_CHANNEL: ${HIK_CHANNEL:-0}
+      HIK_STREAM: ${HIK_STREAM:-main}
+      HIK_TLS: ${HIK_TLS:-}
+    restart: unless-stopped
+    networks:
+      - camnet
+
+  go2rtc:
+    image: alexxit/go2rtc:1.9.14
+    platform: linux/amd64
+    ports:
+      - "1984:1984"
+      - "8554:8554"
+      - "8555:8555"
+      - "8555:8555/udp"
+    volumes:
+      - ./go2rtc.yaml:/config/go2rtc.yaml:ro
+    depends_on:
+      - bridge
+    restart: unless-stopped
+    networks:
+      - camnet
+
+networks:
+  camnet:
+    driver: bridge

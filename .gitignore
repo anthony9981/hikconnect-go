@@ -1,0 +1,8 @@
+# Proprietary HCNetSDK - supply locally, never commit
+sdk/
+libs/
+*.so
+
+.env
+hikvision-bridge
+.devin/

@@ -1,0 +1,9 @@
+.git
+.devin
+.gitignore
+.dockerignore
+docker-compose.yml
+go2rtc.yaml
+libs/
+*.md
+.env
