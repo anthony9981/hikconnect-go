@@ -57,8 +57,15 @@ mkdir sdk && cp -r /path/to/EN-HCNetSDKV*_linux64/{incEn,lib} sdk/
 # 2. Configure
 cp .env.example .env && $EDITOR .env
 
-# 3. Run
-docker compose up --build -d
+# 3. Build the bridge image (needed once for the channel scan too)
+docker compose build bridge
+
+# 4. Find which channels your account can stream (optional)
+./scan_channels.sh          # analog/TurboHD channels 1-16
+./scan_channels.sh 33 50    # NVR IP channels
+
+# 5. Run
+docker compose up -d
 ```
 
 Watch:
@@ -84,11 +91,32 @@ Watch:
 | `HIK_TLS` | off | `1`/`true` for TLS transport (rarely supported) |
 | `LISTEN_ADDR` | `:5000` | bridge TCP socket consumed by go2rtc |
 
+## Finding the right channel
+
+`scan_channels.sh` logs in with your `.env` credentials and probes every
+channel in a range. Output:
+
+```
+channel  result     detail
+1        denied     realplay: ... Don't have enough authority (code 2)
+11       OK         756316B received - video flowing
+33       denied     realplay: ... Channel number error (code 4)
+```
+
+- `OK` — streamable, use it for `HIK_CHANNEL`
+- `empty` — session opens but no frames (no camera attached or channel disabled)
+- `denied code 2` — account lacks live-view permission
+- `denied code 4` — channel doesn't exist on this device
+
+Note: scanning while the stack is running uses extra logins — some DVRs cap
+concurrent sessions per account. `docker compose stop bridge` first if scans
+fail unexpectedly.
+
 ## Troubleshooting
 
 - **`RealPlay: Don't have enough authority (code 2)`** — account lacks live-view
-  permission on that channel. Grant it in DVR user management, or test other
-  `HIK_CHANNEL` values.
+  permission on that channel. Grant it in DVR user management, or run
+  `./scan_channels.sh` to find a channel the account can actually open.
 - **`RealPlay: Channel number error (code 4)`** — channel doesn't exist. With
   `HIK_CHANNEL=0` the bridge logs the detected layout
   (`analog=N startCh=X ipCh=N startIPCh=Y`) at startup — pick from that.
@@ -109,6 +137,7 @@ Dockerfile          clones go-hikvision-sdk, vendors sdk/, cgo build
 docker-compose.yml  bridge + go2rtc on one network
 go2rtc.yaml         exec/ffmpeg source -> rtsp/webrtc/hls
 .env.example        config template (copy to .env)
+scan_channels.sh    probe a channel range for streamable channels
 sdk/                YOU extract the Linux64 SDK here (gitignored)
 ```
 
