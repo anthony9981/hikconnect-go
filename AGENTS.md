@@ -51,8 +51,9 @@ bytes over TCP, snapshot returns a JPEG.
 - **`sdk/` and `.env` must never be committed** (proprietary + secrets).
 - Keep `platform: linux/amd64` — HCNetSDK ships amd64/arm-linux only; this
   repo vendors amd64.
-- Commits: conventional, concise, **no Generated-by/Co-Authored-By footers**
-  (repo convention).
+- Commits: conventional, concise, **no attribution footers of any kind** —
+  no `Co-Authored-By`, no `Generated with`, no agent/tooling credit. See
+  [docs/COMMIT-RULES.md](docs/COMMIT-RULES.md).
 
 ## Details
 
@@ -64,3 +65,7 @@ bytes over TCP, snapshot returns a JPEG.
   data plane, design decisions, failure modes
 - [docs/DEVELOPMENT-ROADMAP.md](docs/DEVELOPMENT-ROADMAP.md) — done list,
   limitations, next-up priorities
+- [docs/CODING-STANDARDS.md](docs/CODING-STANDARDS.md) — Go/shell/docker
+  rules for this repo
+- [docs/COMMIT-RULES.md](docs/COMMIT-RULES.md) — message format, no
+  attribution, flow
