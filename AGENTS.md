@@ -19,7 +19,7 @@ RTSP `:8554` / WebRTC `:8555` / API `:1984`. Everything runs in Docker,
 main.go             bridge (login, persistent RealPlay, TCP fan-out)
 Dockerfile          clones SDK wrapper, vendors sdk/, cgo build, runtime image
 docker-compose.yml  bridge + go2rtc on camnet
-go2rtc.yaml         exec/ffmpeg source -> rtsp/webrtc/hls
+go2rtc.example.yaml exec/ffmpeg source -> rtsp/webrtc/hls (copy to go2rtc.yaml)
 scan_channels.sh    probes channel range with .env creds
 .env                local creds (gitignored; copy from .env.example)
 sdk/                extracted HCNetSDK Linux64 (gitignored, YOU supply it)

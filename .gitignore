@@ -4,5 +4,6 @@ libs/
 *.so
 
 .env
+go2rtc.yaml
 hikvision-bridge
 .devin/

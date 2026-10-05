@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/github/license/anthony9981/hikconnect-go)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](go.mod)
 [![Docker](https://img.shields.io/badge/Docker-linux%2Famd64-2496ED?logo=docker&logoColor=white)](Dockerfile)
-[![go2rtc](https://img.shields.io/badge/go2rtc-1.9.14-orange)](go2rtc.yaml)
+[![go2rtc](https://img.shields.io/badge/go2rtc-1.9.14-orange)](go2rtc.example.yaml)
 [![Platform](https://img.shields.io/badge/device-HCNetSDK%20port%208000-lightgrey)](docs/HCNETSDK.md)
 
 **English** | [Tiếng Việt](README.vi.md)
@@ -64,6 +64,7 @@ mkdir sdk && cp -r /path/to/EN-HCNetSDKV*_linux64/{incEn,lib} sdk/
 
 # 2. Configure
 cp .env.example .env && $EDITOR .env
+cp go2rtc.example.yaml go2rtc.yaml   # adjust webrtc.candidates to your host IP
 
 # 3. Build the bridge image (needed once for the channel scan too)
 docker compose build bridge
@@ -143,7 +144,7 @@ fail unexpectedly.
 main.go             bridge: HCNetSDK login -> RealPlay -> TCP :5000
 Dockerfile          clones go-hikvision-sdk, vendors sdk/, cgo build
 docker-compose.yml  bridge + go2rtc on one network
-go2rtc.yaml         exec/ffmpeg source -> rtsp/webrtc/hls
+go2rtc.example.yaml go2rtc config template (copy to go2rtc.yaml, gitignored)
 .env.example        config template (copy to .env)
 scan_channels.sh    probe a channel range for streamable channels
 sdk/                YOU extract the Linux64 SDK here (gitignored)

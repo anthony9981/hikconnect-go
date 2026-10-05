@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/github/license/anthony9981/hikconnect-go)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](go.mod)
 [![Docker](https://img.shields.io/badge/Docker-linux%2Famd64-2496ED?logo=docker&logoColor=white)](Dockerfile)
-[![go2rtc](https://img.shields.io/badge/go2rtc-1.9.14-orange)](go2rtc.yaml)
+[![go2rtc](https://img.shields.io/badge/go2rtc-1.9.14-orange)](go2rtc.example.yaml)
 [![Platform](https://img.shields.io/badge/device-HCNetSDK%20port%208000-lightgrey)](docs/HCNETSDK.md)
 
 [English](README.md) | **Tiếng Việt**
@@ -63,6 +63,7 @@ mkdir sdk && cp -r /path/to/EN-HCNetSDKV*_linux64/{incEn,lib} sdk/
 
 # 2. Cấu hình
 cp .env.example .env && $EDITOR .env
+cp go2rtc.example.yaml go2rtc.yaml   # chỉnh webrtc.candidates thành IP của máy
 
 # 3. Build image (bước này cũng cần cho việc quét kênh)
 docker compose build bridge
@@ -142,7 +143,7 @@ lỗi bất thường.
 main.go             bridge: login HCNetSDK -> RealPlay -> TCP :5000
 Dockerfile          clone go-hikvision-sdk, vendor sdk/, build cgo
 docker-compose.yml  bridge + go2rtc trên một network
-go2rtc.yaml         exec/ffmpeg source -> rtsp/webrtc/hls
+go2rtc.example.yaml mẫu config go2rtc (copy thành go2rtc.yaml, gitignored)
 .env.example        mẫu cấu hình (copy thành .env)
 scan_channels.sh    quét dải kênh tìm kênh stream được
 sdk/                BẠN giải nén SDK Linux64 vào đây (gitignored)
