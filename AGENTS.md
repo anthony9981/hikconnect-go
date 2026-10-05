@@ -60,3 +60,7 @@ bytes over TCP, snapshot returns a JPEG.
   manual probing, verification checklist
 - [docs/HCNETSDK.md](docs/HCNETSDK.md) — SDK wrapper API used, frame types,
   error codes, channel numbering, vendoring mechanics
+- [docs/PROJECT-ARCHITECTURE.md](docs/PROJECT-ARCHITECTURE.md) — components,
+  data plane, design decisions, failure modes
+- [docs/DEVELOPMENT-ROADMAP.md](docs/DEVELOPMENT-ROADMAP.md) — done list,
+  limitations, next-up priorities
