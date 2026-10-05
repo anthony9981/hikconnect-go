@@ -1,5 +1,13 @@
 # hikvision-bridge
 
+[![License: MIT](https://img.shields.io/github/license/anthony9981/hikconnect-go)](LICENSE)
+[![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](go.mod)
+[![Docker](https://img.shields.io/badge/Docker-linux%2Famd64-2496ED?logo=docker&logoColor=white)](Dockerfile)
+[![go2rtc](https://img.shields.io/badge/go2rtc-1.9.14-orange)](go2rtc.yaml)
+[![Platform](https://img.shields.io/badge/device-HCNetSDK%20port%208000-lightgrey)](docs/HCNETSDK.md)
+
+**English** | [Tiếng Việt](README.vi.md)
+
 Stream a Hikvision camera/DVR into **go2rtc** (RTSP, WebRTC, HLS, Home Assistant)
 using the official **HCNetSDK** private protocol on port 8000 — no ISAPI, no
 Hik-Connect cloud, no RTSP on the device required.
